@@ -1,9 +1,14 @@
 package com.accenture.corso.entities;
 
 import javax.persistence.*;
-import lombok.Data;
 
-@Data
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import lombok.*;
+
+@Getter
+@Setter
 @Entity
 @Table(name="automobili")
 public class Automobile implements Comparable<Automobile>{
@@ -18,6 +23,10 @@ public class Automobile implements Comparable<Automobile>{
 	private int cavalli;
 	@Column(name = "cilindrata")
 	private int cilindrata;
+	@ManyToOne
+	@JoinColumn(name="proprietario_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Proprietario proprietario;
 	
 	@Override
 	public int compareTo(Automobile o) {
@@ -27,4 +36,18 @@ public class Automobile implements Comparable<Automobile>{
 			return -1;
 		}
 	}
+	
+	public String getInfoProprietario() {
+		return this.proprietario.nomeCognome();
+	}
+	
+	@Override
+	public String toString() {
+		return "Automobile [id=" + id + ", modello=" + modello + ", marca=" + marca + ", cavalli=" + cavalli
+				+ ", cilindrata=" + cilindrata + ", proprietario=" + proprietario.nomeCognome() + "]";
+	}
+	
+	
+		
+	
 }

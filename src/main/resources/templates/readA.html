@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org/">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <link rel="stylesheet" href="" >
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <title>Read automobili</title>
+    </head>
+    <body>
+        <div id="header">
+            <h1><a th:href="@{/home}">Concessionaria</a></h1>
+            <div>
+                <a th:href="@{/createAutomobili}">Create automobili</a>
+                <a th:href="@{/createProprietari}">Create proprietari</a>
+                <a th:href="@{/readAutomobili}">Read automobili</a>
+                <a th:href="@{/readProprietari}">Read proprietari</a>
+            </div>
+        </div>
+        <div id="main">
+            <h2>Read automobili</h2>
+            <table id="readTable">
+                <tr class="tableHeader">
+                    <th>Id</th>
+                    <th>Modello</th>
+                    <th>Marca</th>
+                    <th>Cavalli</th>
+                    <th>Cilindrata</th>
+                    <th>Proprietario</th>
+                    <th>Opzioni</th>
+                </tr>
+                <tr th:each="automobile: ${automobili}"> 
+                    <td th:text="${automobile.id}"></td>
+                    <td th:text="${automobile.modello}"></td>
+                    <td th:text="${automobile.marca}"></td>
+                    <td th:text="${automobile.cavalli}"></td>
+                    <td th:text="${automobile.cilindrata}"></td>
+                    <td th:text="${automobile.getInfoProprietario()}"></td>
+                    <td>
+                        <button>U</button>
+                        <button>X</button>
+                    </td>
+                </tr>
+            </table>
+            <button id="readButton" th:onclick="|window.location.href='/automobili/read'|">Leggi automobili da database</button>
+        </div>
+        <div id="footer">
+        </div>
+    </body>
+</html>

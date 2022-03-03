@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org/">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <link rel="stylesheet" href="" >
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <title>Create proprietari</title>
+    </head>
+    <body>
+        <div id="header">
+            <h1><a th:href="@{/home}">Concessionaria</a></h1>
+            <div>
+                <a th:href="@{/createAutomobili}">Create automobili</a>
+                <a th:href="@{/createProprietari}">Create proprietari</a>
+                <a th:href="@{/readAutomobili}">Read automobili</a>
+                <a th:href="@{/readProprietari}">Read proprietari</a>
+            </div>
+        </div>
+        <div id="main">
+            <h2>Create proprietari</h2>
+                <form id="createForm" action="#" th:action="@{/proprietari/create}" th:object="${newProprietario}" method="post">
+                <input type="text" name="nome" placeholder="Nome del proprietario..." th:field="*{nome}" required/>
+                <input type="text" name="cognome" placeholder="Cognome del proprietario..." th:field="*{cognome}" required/>
+                <input type="submit" id="createButton" value="Aggiungi proprietario"/>
+            </form>
+        </div>
+        <div id="footer">
+        </div>
+    </body>
+</html>
