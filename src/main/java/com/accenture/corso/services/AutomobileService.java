@@ -27,6 +27,7 @@ public class AutomobileService {
 	}
 	
 	public boolean create(Automobile a) {
+		System.out.println(a);
 		try {
 			autoRepo.save(a);
 			return true;
@@ -37,14 +38,17 @@ public class AutomobileService {
 		}
 	}
 	
-	public boolean update(Integer id) {
+	public boolean update(Integer id, Automobile a) {
 		try {
-			Automobile a = autoRepo.findById(id).get();
-			autoRepo.save(a);
-			return true;
+			if(autoRepo.existsById(id)) {
+				autoRepo.save(a);
+				return true;
+			}else {
+				return false;
+			}
 		}catch(Exception e) {
-			System.out.println("non sono riuscito a creare l'automobile");
 			e.printStackTrace();
+			System.out.println("non sono riuscito a modificare l'automobile con id " + id);
 			return false;
 		}
 	}

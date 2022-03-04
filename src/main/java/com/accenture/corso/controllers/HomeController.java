@@ -38,7 +38,12 @@ public class HomeController {
 	
 	@GetMapping({"/updateProprietario", "/updateProprietaro.html"})
 	public String updateProprietario(Model m) {
-		
 	    return "updateP.html";
+	}
+	
+	@GetMapping({"/updateAutomobile", "/updateAutomobile.html"})
+	public String updateAutomobile() {
+		
+	    return "updateA.html";
 	}
 }

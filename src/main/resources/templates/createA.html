@@ -27,19 +27,20 @@
                 <input type="text" name="marca" placeholder="Marca dell'automobile..." th:field="*{marca}" required/>
                 <input type="number" name="cavalli" placeholder="0" th:field="*{cavalli}" required/>
                 <input type="number" name="cilindrata" placeholder="0" th:field="*{cilindrata}" required/>
-                <input type="number" name="proprietario_id" placeholder="0" th:field="*{proprietario}" required/>
+                <select id="proprietario_id" th:field="*{proprietario}"></select>
                 <input type="submit" id="createButton" value="Aggiungi automobile"/>
             </form>
-        
-        <!--
-            <form id="createForm" action="#" th:action="@{/automobili/saveAutomobile}" th:object="${automobile}" method="post">
-                <input type="text" name="modello" placeholder="Modello dell'automobile..." th:field="*{modello}" required/>
-                <input type="text" name="marca" placeholder="Marca dell'automobile..." th:field="*{marca}" required/>
-                <input type="number" name="cavalli" placeholder="0" th:field="*{cavalli}" required/>
-                <input type="number" name="cilindrata" placeholder="0" th:field="*{cilindrata}" required/>
-                <input type="number" name="proprietario_id" placeholder="0" th:field="*{proprietario_id}" required/>
-                <input type="submit" id="createButton" value="Aggiungi automobile"/>
-            </form>-->
+            <script>
+                $(document).ready(function(){
+                    $.get("http://localhost:8080/proprietari/getProprietari", function(proprietari){
+                        for(var i = 0; i < proprietari.length; i++){
+                            option = "";
+                            option += "<option th:value='*{proprietario}'>" + proprietari[i].id + "</option>";
+                            $("#proprietario_id").append(option);
+                        }
+                    });
+                });
+            </script>
         </div>
         <div id="footer">
         </div>

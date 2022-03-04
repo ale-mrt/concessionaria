@@ -61,6 +61,7 @@ public class ProprietarioService {
 			return false;
 		}
 	}
+	
 	public Proprietario getById(Integer id) {
 		return proprietarioRepo.findById(id).get();
 	}

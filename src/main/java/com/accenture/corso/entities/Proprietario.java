@@ -3,6 +3,7 @@ package com.accenture.corso.entities;
 import java.util.List;
 
 import javax.persistence.*;
+
 import lombok.Data;
 
 @Data
@@ -17,7 +18,10 @@ public class Proprietario implements Comparable<Proprietario>{
 	@Column(name = "cognome")
 	private String cognome;
 	
-	@OneToMany(mappedBy = "proprietario")
+	@OneToMany
+	@JoinTable(name="proprietario_auto",
+	joinColumns = {@JoinColumn(name="id_proprietario", referencedColumnName = "id" )},
+	inverseJoinColumns = {@JoinColumn(name="id_auto", referencedColumnName = "id") })
 	private List<Automobile> automobili;
 	
 	@Override

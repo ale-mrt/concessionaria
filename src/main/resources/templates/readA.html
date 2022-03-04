@@ -39,8 +39,8 @@
                     <td th:text="${automobile.cilindrata}"></td>
                     <td th:text="${automobile.getInfoProprietario()}"></td>
                     <td>
-                        <button>Modifica</button>
-                        <button>Elimina</button>
+                        <button id="modifyButton" th:onclick="|window.location.href='/updateAutomobile'|">Modifica</button>
+                        <button id="deleteButton" th:onclick="|window.location.href='/automobili/delete/${automobile.id}'|">Elimina</button>
                     </td>
                 </tr>
             </table>

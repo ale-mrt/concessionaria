@@ -46,9 +46,11 @@ public class ProprietarioController {
 	public String update(@PathVariable("id") Integer id, @RequestBody String proprietarioJSON) {
 		JSONObject jo = new JSONObject(proprietarioJSON);
 		Proprietario p = new Proprietario();
+		
 		p.setId(id);
 		p.setNome(jo.getString("nome"));
 		p.setCognome(jo.getString("cognome"));
+		
 		System.out.println(p);
 		propService.update(id, p);
 		return "redirect:/readProprietari";

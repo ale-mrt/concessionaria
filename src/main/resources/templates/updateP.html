@@ -23,11 +23,6 @@
         </div>
         <div id="main">
             <h2>Update proprietario</h2>
-            <!--<form id="updateForm" th:action="@{/proprietari/update}" th:object="${proprietarioModificato}" method="post">
-                <input type="text" name="nome" placeholder="Nome del proprietario..." th:field="${proprietarioModificato.nome}" required/>
-                <input type="text" name="cognome" placeholder="Cognome del proprietario..." th:field="${proprietarioModificato.cognome}" required/>
-                <input type="submit" id="updateButton" value="Modifica proprietario"/>
-            </form>-->
             <select id="proprietarioMod">
 
             </select>
@@ -37,7 +32,7 @@
             <script>
                 $(document).ready(function(){
                     $.get("http://localhost:8080/proprietari/getProprietari", function(proprietari){
-                        $("#proprietarioMod").append("<option></option>");
+                        console.log(proprietari);
                         for(var i = 0; i < proprietari.length; i++){
                             option = "";
                             option += "<option>" + proprietari[i].id + "</option>";
@@ -52,11 +47,12 @@
                                 }
                             }
                             $("#modifyDiv").empty();
-                            modifyDivContent = '<input type="text" id="nome" placeholder="' + p.nome + '" required/>';
+                            modifyDivContent = "";
+                            modifyDivContent += '<input type="text" id="nome" placeholder="' + p.nome + '" required/>';
                             modifyDivContent += '<input type="text" id="cognome" placeholder="' + p.cognome + '" required/>';
                             modifyDivContent += '<input type="button" id="modifyButton" value="Modifica proprietario">';
                             $("#modifyDiv").append(modifyDivContent);
-
+                            
                             $("#modifyButton").click(function(){
                                 p.nome = $("#nome").val();
                                 p.cognome = $("#cognome").val();
