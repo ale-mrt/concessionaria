@@ -31,9 +31,7 @@ public class Automobile implements Comparable<Automobile>{
 	@Column(name = "cilindrata")
 	private int cilindrata;
 	@ManyToOne
-	@JoinTable(name="proprietario_auto",
-				joinColumns = {@JoinColumn(name="id_auto", referencedColumnName = "id" )},
-				inverseJoinColumns = {@JoinColumn(name="id_proprietario", referencedColumnName = "id") })
+	@JoinColumn(name = "proprietario_id")
 	private Proprietario proprietario;
 	
 	@Override
@@ -52,6 +50,6 @@ public class Automobile implements Comparable<Automobile>{
 	@Override
 	public String toString() {
 		return "Automobile [id=" + id + ", modello=" + modello + ", marca=" + marca + ", cavalli=" + cavalli
-				+ ", cilindrata=" + cilindrata + ", proprietario=" + proprietario.nomeCognome() + "]";
+				+ ", cilindrata=" + cilindrata + "]";
 	}	
 }

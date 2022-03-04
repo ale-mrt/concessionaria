@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accenture.corso.entities.Automobile;
+import com.accenture.corso.entities.Proprietario;
 import com.accenture.corso.services.AutomobileService;
 
 @RequestMapping("/automobili")
 @Controller
 public class AutomobileController {
-	Scanner in = new Scanner(System.in);
 	@Autowired
 	private AutomobileService autoService;
 	
@@ -47,10 +47,39 @@ public class AutomobileController {
 		a.setMarca(jo.getString("marca"));
 		a.setCavalli(jo.getInt("cavalli"));
 		a.setCilindrata(jo.getInt("cilindrata"));
-		//a.setProprietario(jo.)
-		System.out.println(a);
+		
+		String proprietario = jo.get("proprietario").toString();
+		//{"automobili":[],"cognome":"a","nome":"a","id":5}
+		proprietario = proprietario.replace("\"automobili\":[],", "");
+		//{"cognome":"a","nome":"a","id":5}
+		proprietario = proprietario.replace("{", "");
+		proprietario = proprietario.replace("}", "");
+		////"cognome":"a","nome":"a","id":5
+		
+		Proprietario p = new Proprietario();
+		String[] proprietarioValues = proprietario.split(",");
+		String[] value;
+		//["cognome":"a", "nome":"a", "id":5]
+		for(int i = 0; i < proprietarioValues.length; i++) {
+			value = proprietarioValues[i].split(":");
+			if(value[0].equals("\"id\"")) {
+				p.setId(Integer.parseInt(value[1]));
+			}else if(value[0].equals("\"nome\"")){
+				p.setNome(value[1]);
+			}else {
+				p.setCognome(value[1]);
+			}
+		}
+		a.setProprietario(p);
+		
 		autoService.update(id, a);
 		return "redirect:/readAutomobili";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Integer id) {
+		autoService.delete(id);
+		return "redirect:/readAutomobili"; 
 	}
 	
 	@GetMapping("/getAutomobili")
@@ -59,7 +88,6 @@ public class AutomobileController {
 		for(Automobile a: (ArrayList<Automobile>) autoService.readAll()) {
 			System.out.println(a+"\n");
 		}
-		in.nextLine();
 		return (ArrayList<Automobile>) autoService.readAll();
 	}
 }

@@ -53,10 +53,14 @@ public class AutomobileService {
 		}
 	}
 
-	public boolean delete(Automobile a) {
+	public boolean delete(Integer id) {
 		try {
-			autoRepo.delete(a);
-			return true;
+			if(autoRepo.existsById(id)) {
+				autoRepo.delete(autoRepo.findById(id).get());
+				return true;
+			}else {
+				return false;
+			}
 		}catch(Exception e) {
 			System.out.println("non sono riuscito a cancellare l'automobile");
 			e.printStackTrace();

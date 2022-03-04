@@ -17,6 +17,8 @@
                 <a th:href="@{/createProprietari}">Create proprietari</a>
                 <a th:href="@{/readAutomobili}">Read automobili</a>
                 <a th:href="@{/readProprietari}">Read proprietari</a>
+                <a th:href="@{/updateAutomobile}">Update automobili</a>
+                <a th:href="@{/updateProprietario}">Update proprietari</a>
             </div>
         </div>
         <div id="main">
@@ -39,7 +41,6 @@
                     <td th:text="${automobile.cilindrata}"></td>
                     <td th:text="${automobile.getInfoProprietario()}"></td>
                     <td>
-                        <button id="modifyButton" th:onclick="|window.location.href='/updateAutomobile'|">Modifica</button>
                         <button id="deleteButton" th:onclick="|window.location.href='/automobili/delete/${automobile.id}'|">Elimina</button>
                     </td>
                 </tr>

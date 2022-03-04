@@ -17,6 +17,8 @@
                 <a th:href="@{/createProprietari}">Create proprietari</a>
                 <a th:href="@{/readAutomobili}">Read automobili</a>
                 <a th:href="@{/readProprietari}">Read proprietari</a>
+                <a th:href="@{/updateAutomobile}">Update automobili</a>
+                <a th:href="@{/updateProprietario}">Update proprietari</a>
             </div>
         </div>
         <div id="main">
@@ -31,12 +33,12 @@
             <script>
                 $(document).ready(function(){
                     $.get("http://localhost:8080/automobili/getAutomobili", function(automobili){
-                        
+                        option = "<option></option>";
+                        $("#automobileMod").append(option);
                         for(var i = 0; i < automobili.length; i++){
                             option = "";
                             option += "<option>" + automobili[i].id + "</option>";
                             $("#automobileMod").append(option);
-                            console.log(automobili[i].proprietario);
                         }
                         
                         $("#automobileMod").change(function(){
@@ -52,25 +54,37 @@
                             modifyDivContent += '<input type="text" id="modello" placeholder="' + a.modello + '" required/>';
                             modifyDivContent += '<input type="text" id="cavalli" placeholder="' + a.cavalli + '" required/>';
                             modifyDivContent += '<input type="text" id="cilindrata" placeholder="' + a.cilindrata + '" required/>';
-                            //TODO id proprietario
-                            modifyDivContent += '<input type="button" id="modifyButton" value="Modifica automobile">';
-                            $("#modifyDiv").append(modifyDivContent);
+                            modifyDivContent += '<select id="proprietariSelect"><option></option>';
+                            $.get("http://localhost:8080/proprietari/getProprietari", function(proprietari){
+                                for(var i = 0; i < proprietari.length; i++){
+                                    
+                                    modifyDivContent += "<option value=" + proprietari[i].id + ">" + proprietari[i].id + "</option>";
+                                }
+                                modifyDivContent += '<input type="button" id="modifyButton" value="Modifica automobile">';
+                                $("#modifyDiv").append(modifyDivContent);
 
-                            $("#modifyButton").click(function(){
-                                a.marca = $("#marca").val();
-                                a.modello = $("#modello").val();
-                                a.cavalli = $("#cavalli").val();
-                                a.cilindrata = $("#cilindrata").val();
-                                console.log(a);
-
-                                $.ajax({
-                                    url: "http://localhost:8080/automobili/update/" + a.id,
-                                    method: "post",
-                                    contentType: "application/json",
-                                    data: JSON.stringify(a),
-                                    success: function(){
-                                        window.location.href='/automobili/read'
+                                $("#modifyButton").click(function(){
+                                    a.marca = $("#marca").val();
+                                    a.modello = $("#modello").val();
+                                    a.cavalli = $("#cavalli").val();
+                                    a.cilindrata = $("#cilindrata").val();
+                                    for(var i = 0; i < proprietari.length; i++){
+                                        if($("#proprietariSelect").val() == proprietari[i].id){
+                                            prompt($("#proprietariSelect").val());
+                                            a.proprietario = proprietari[i];
+                                            break;
+                                        }
                                     }
+
+                                    $.ajax({
+                                        url: "http://localhost:8080/automobili/update/" + a.id,
+                                        method: "post",
+                                        contentType: "application/json",
+                                        data: JSON.stringify(a),
+                                        success: function(){
+                                            window.location.href='/automobili/read'
+                                        }
+                                    });
                                 });
                             });
                         });

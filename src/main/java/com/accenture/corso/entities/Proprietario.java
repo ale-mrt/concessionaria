@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.Data;
 
 @Data
@@ -19,9 +22,6 @@ public class Proprietario implements Comparable<Proprietario>{
 	private String cognome;
 	
 	@OneToMany
-	@JoinTable(name="proprietario_auto",
-	joinColumns = {@JoinColumn(name="id_proprietario", referencedColumnName = "id" )},
-	inverseJoinColumns = {@JoinColumn(name="id_auto", referencedColumnName = "id") })
 	private List<Automobile> automobili;
 	
 	@Override
