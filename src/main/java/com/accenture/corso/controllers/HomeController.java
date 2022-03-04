@@ -35,5 +35,10 @@ public class HomeController {
 		m.addAttribute("newProprietario", new Proprietario());
 	    return "createP.html";
 	}
-
+	
+	@GetMapping({"/updateProprietario", "/updateProprietaro.html"})
+	public String updateProprietario(Model m) {
+		
+	    return "updateP.html";
+	}
 }

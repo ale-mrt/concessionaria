@@ -21,7 +21,7 @@
         </div>
         <div id="main">
             <h2>Create proprietari</h2>
-                <form id="createForm" action="#" th:action="@{/proprietari/create}" th:object="${newProprietario}" method="post">
+            <form id="createForm" action="#" th:action="@{/proprietari/create}" th:object="${newProprietario}" method="post">
                 <input type="text" name="nome" placeholder="Nome del proprietario..." th:field="*{nome}" required/>
                 <input type="text" name="cognome" placeholder="Cognome del proprietario..." th:field="*{cognome}" required/>
                 <input type="submit" id="createButton" value="Aggiungi proprietario"/>

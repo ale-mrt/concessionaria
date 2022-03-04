@@ -29,10 +29,4 @@ public class AutomobileController {
 		autoService.create(a);
 		return "redirect:/home";
 	}
-	
-	@PostMapping("/update")
-	public String update(@ModelAttribute("autmobileId")Integer id) {
-		autoService.update(id);
-		return "redirect:/home";
-	}
 }

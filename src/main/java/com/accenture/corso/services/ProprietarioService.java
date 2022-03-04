@@ -2,7 +2,6 @@ package com.accenture.corso.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,52 +21,47 @@ public class ProprietarioService {
 		return proprietari;
 	}
 	
-	public Optional<Proprietario> readById(Integer id) {
-		return proprietarioRepo.findById(id);
-	}
-	
-	public boolean create(Proprietario a) {
+	public boolean create(Proprietario p) {
 		try {
-			proprietarioRepo.save(a);
+			proprietarioRepo.save(p);
 			return true;
 		}catch(Exception e) {
-			System.out.println("non sono riuscito a creare l'automobile");
+			System.out.println("non sono riuscito a creare il proprietario '" + p.nomeCognome() + "'");
 			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	public boolean update(Proprietario a, Integer id) {
+	public boolean delete(Integer id) {
 		try {
-			proprietarioRepo.deleteById(id);
-			proprietarioRepo.save(a);
-			return true;
+			if(proprietarioRepo.existsById(id)) {
+				proprietarioRepo.delete(proprietarioRepo.findById(id).get());
+				return true;
+			}else {
+				return false;
+			}
 		}catch(Exception e) {
-			System.out.println("non sono riuscito a creare l'automobile");
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	public boolean delete(Proprietario a) {
-		try {
-			proprietarioRepo.delete(a);
-			return true;
-		}catch(Exception e) {
-			System.out.println("non sono riuscito a cancellare l'automobile");
+			System.out.println("non sono riuscito a eliminare il proprietario con id " + id);
 			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	public boolean deleteById(Proprietario a) {
+	public boolean update(Integer id, Proprietario p) {
 		try {
-			proprietarioRepo.deleteById(a.getId());
-			return true;
+			if(proprietarioRepo.existsById(id)) {
+				proprietarioRepo.save(p);
+				return true;
+			}else {
+				return false;
+			}
 		}catch(Exception e) {
-			System.out.println("non sono riuscito a cancellare l'automobile");
 			e.printStackTrace();
+			System.out.println("non sono riuscito a modificare il proprietario con id " + id);
 			return false;
 		}
+	}
+	public Proprietario getById(Integer id) {
+		return proprietarioRepo.findById(id).get();
 	}
 }

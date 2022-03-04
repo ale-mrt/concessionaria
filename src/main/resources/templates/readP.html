@@ -33,8 +33,8 @@
                     <td th:text="${proprietario.nome}"></td>
                     <td th:text="${proprietario.cognome}"></td>
                     <td>
-                        <button>U</button>
-                        <button>X</button>
+                        <button id="modifyButton" th:onclick="|window.location.href='/updateProprietario'|">Modifica</button>
+                        <button id="deleteButton" th:onclick="|window.location.href='/proprietari/delete/${proprietario.id}'|">Elimina</button>
                     </td>
                 </tr>
             </table>
